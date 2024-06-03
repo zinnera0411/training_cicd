@@ -1,92 +1,91 @@
+## Workshop CI/CD with jenkins
 
-# Taller CI/CD con Jenkins
+In this workshop, we'll learn how to set up a pipeline using Jenkins with Docker to automate the process of building and deploying a Python project.
 
-En este taller, aprenderemos cómo configurar un pipeline utilizando Jenkins con Docker para automatizar el proceso de construcción e implementación de un proyecto Python.
+## Prerequisites
+Before you begin, make sure you have Docker installed:
 
-## Prerrequisitos
-Antes de comenzar, asegúrate de tener Docker instalado:
+- Docker: [Installation Instructions] (https://docs.docker.com/get-docker/)
 
-- Docker: [Instrucciones de instalación](https://docs.docker.com/get-docker/)
+## Paso 0 - Fork this repository
 
-## Paso 0 - Fork de este repositorio
+1. To get started, fork this repository in your GitLab account. 
 
-1. Para empezar, haz un fork de este repositorio en tu cuenta de GitLab. 
-
-2. El siguiente paso es clonar tu repositorio en tu máquina local. Para ello, ejecuta los siguientes comandos en tu terminal:
+2. The next step is to clone your repository to your local machine. To do this, run the following commands on your terminal:
     ```bash
-    git clone https://<tu-repositorio>/workshop-cicd.git
-    cd workshop-cicd
+    git clone https://<your-repository>/training-cicd.git
+    cd training-cicd
     ```
 
-3. Crea una rama para trabajar en el workshop. Por ejemplo, si vas a trabajar con Jenkins, crea una rama llamada "jenkins":
+3. Create a branch to work on in the workshop. For example, if you're working with Jenkins, create a branch called "jenkins":
     ```bash
     git checkout -b jenkins
     ```
 
-## Paso 1 - Configurar Jenkins con Docker
+## Step 1 - Configure Jenkins with Docker
 
-Este código configura un pipeline de Jenkins utilizando Docker para un proyecto Python.
+This code sets up a Jenkins pipeline using Docker for a Python project.
 
-Para iniciar Jenkins con Docker, sigue estos pasos:
+To start Jenkins with Docker, follow these steps:
 
-1. Inicia el contenedor de Jenkins utilizando Docker Compose:
-    - Abre una terminal o línea de comandos.
+1. Launch the Jenkins container using Docker Compose:
+    - Open a terminal or command line.
       ```bash
       docker compose up
       ```
-    - Este comando realiza lo siguiente:
-         - Inicia el contenedor de Jenkins y crea un volumen llamado "jenkins_home" para persistir los datos de Jenkins.
-         - Mapea los puertos 8080 y 50000 del contenedor a los puertos 8080 y 50000 de la máquina host, respectivamente.
-         - También inicia el servicio docker:dind para utilizar Docker en Docker.
+    - This command does the following:
+         - Start the Jenkins container and create a volume named "jenkins_home" to persist the Jenkins data.
+         - Maps container ports 8080 and 50000 to host machine ports 8080 and 50000, respectively.
+         - It also launches the docker:dind service to use Docker on Docker.
 
 2. Accede a Jenkins:
-    - Abre un navegador web y navega a http://localhost:8080.
-    - Sigue las instrucciones en pantalla para completar el proceso de configuración de Jenkins.
+    - Open a web browser and navigate to http://localhost:8080.
+    - Follow the on-screen instructions to complete the Jenkins setup process.
     ![Descripción de la imagen](./images/Jenkins_GettingStarted_UnlockJenkins.jpg)
-    - Elige "Install suggested plugins" para instalar los plugins por defecto.
+    - Choose "Install suggested plugins" to install the default plugins.
     ![Descripción de la imagen](./images/Jenkins_GettingStarted_WellcomeJenkins.jpg)
-    - Configura un usuario administrador para acceder a Jenkins.
+    - Set up an admin user to access Jenkins.
     ![Descripción de la imagen](./images/Jenkins_GettingStarted_CreateFirstAdminUser.jpg)
 
-5. Instala los plugins necesarios:
-    - Una vez configurado Jenkins, inicia sesión con las credenciales del usuario administrador creado. 
-    - Ve a "Manage Jenkins" > "Plugins" > "Available Plugins" para instalar los plugins necesarios.
+3. Install the necessary plugins:
+    - Once Jenkins is configured, log in with the credentials of the created admin user. 
+    - Go to "Manage Jenkins" > "Plugins" > "Available Plugins" to install the necessary plugins.
     ![Descripción de la imagen](./images/Jenkins_Admin_Plugins.jpg)
-    - Instala los plugins necesarios para crear el pipeline de este proyecto Python, como:
+    - Install the necessary plugins to create the pipeline of this Python project, such as:
       - Docker
       - Docker Pipeline
       - Warnings
       - Cobertura
-    - No es necesario reiniciar Jenkins después de instalar estos plugins.
+    - You don't need to restart Jenkins after installing these plugins.
 
-6. Reinicia el servicio de Jenkins:
-    - Abre una terminal o línea de comandos.
+4. Restart the Jenkins service (OPTINAL POINT):
+    - Open a terminal or command line.
       ```bash
       docker compose restart jenkins
       ```
-    - Este comando reinicia el contenedor de Jenkins con los plugins instalados.
-    - NOTA: Este paso no debería ser necesario, pero sinó no detecta el agente de tipo "docker".
+    - This command restarts the Jenkins container with the plugins installed.
+    - NOTE: This step should not be necessary, but otherwise it does not detect the "docker" agent.
 
-¡Eso es todo! Ahora has instalado Jenkins con Docker.
+That's all! You've now installed Jenkins with Docker.
 
-## Paso 2 - Configurar el pipeline de Jenkins
+## Step 2 - Configure Jenkins pipeline
 
-En este paso, crearemos un pipeline de Jenkins para automatizar el proceso de construcción e implementación de un proyecto Python.
+In this step, we'll create a Jenkins pipeline to automate the process of building and deploying a Python project.
 
-Para crear un pipeline de Jenkins, sigue estos pasos:
+To create a Jenkins pipeline, follow these steps:
 
-1. Crea una nueva tarea:
-    - Haz clic en "Nueva Tarea"/"Create a Job" en el panel de control de Jenkins.
-    - Ingresa un nombre para la tarea (por ejemplo, "Workshop Pipeline") y selecciona "Pipeline" como tipo de tarea.
+1. Create a new task:
+    - Click on "New Task"/"Create a Job" in the Jenkins dashboard.
+    - Enter a name for the task (e.g., "Workshop Pipeline") and select "Pipeline" as the task type.
     ![Descripción de la imagen](./images/Jenkins_CreatePipeline.jpg)
-    - Haz clic en "OK" para crear la tarea.
+    - Click "OK" to create the task.
     
-2. Configura el pipeline:
-    - En la página de configuración del pipeline, desplázate hacia abajo hasta la sección "Pipeline".
-    - Selecciona "Pipeline script from SCM" como definición.
-    - Elige "Git" como SCM.
-    - Ingresa la URL del repositorio de GitLab (https) de tu repositorio.
-    - Crea una nueva credencial con tu repositorio de GitLab.
+2. Set up the pipeline:
+    - On the pipeline settings page, scroll down to the "Pipeline" section.
+    - Select "Pipeline script from SCM" as the definition.
+    - Choose "Git" as the SCM.
+    - Enter your repository's GitLab repository URL (https).
+    - Crea una nueva credencial con tu repositorio de Github.
     - Ve a tu cuenta de GitLab.
     - Haz clic en tu repositorio de GitLab.
     - Ve a "Settings" > "Repository" > "Deploy Tokens" > "Add token".
@@ -99,25 +98,25 @@ Para crear un pipeline de Jenkins, sigue estos pasos:
     ![Descripción de la imagen](./images/Jenkins_Pipeline_Configuration.jpg)
     - Haz clic en "Save" para guardar la configuración del pipeline.
 
-3. Ejecuta el pipeline:
-    - Haz clic en "Build Now" para ejecutar el pipeline.
-    - Jenkins clonará el repositorio, y ejecutará el pipeline definido en el archivo "Jenkinsfile", que incluyes los pasos de:
-      - Clean workspace: Limpia el espacio de trabajo antes de ejecutar el pipeline.
-      - Build: instala las dependencias del proyecto Python.
-      - Deploy: espacio para configurar el despliegue del proyecto python.
+3. Run the pipeline:
+    - Click "Build Now" to run the pipeline.
+    - Jenkins will clone the repository, and execute the pipeline defined in the "Jenkinsfile" file, which includes the steps of:
+      - Clean workspace: Cleans up the workspace before running the pipeline.
+      - Build: Installs the dependencies of the Python project.
+      - Deploy: space to configure the deployment of the python project.
     
     ![Descripción de la imagen](./images/Jenkins_Pipeline_Configuration.jpg)
-    - Puedes ver el progreso y los registros del pipeline en el panel de control de Jenkins.
+    - You can view pipeline progress and logs in the Jenkins dashboard.
 
-## Paso 3 - Personalizar el pipeline de Jenkins
+## Step 3 - Customize the Jenkins pipeline
 
-En este paso, personalizaremos el pipeline de Jenkins para un proyecto Python.
+In this step, we'll customize the Jenkins pipeline for a Python project.
 
-1. Personaliza el pipeline:
-    - Abre el archivo "Jenkinsfile" en tu editor de código favorito, por ejemplo: Visual Studio Code.
-2. Configura el stage "Static Analysis":
-    - Este stage ejecuta el análisis de código estático con Pylint.
-    - Copia el siguiente texto en el Pipeline:
+1. Customize the pipeline:
+    - Open the "Jenkinsfile" file in your favourite code editor, for example: Visual Studio Code.
+2. Configure stage "Static Analysis":
+    - This stage runs static code analysis with Pylint.
+    - Copy the following text into the Pipeline:
       ```groovy
         // Static Analysis stage to run PyLint and publish report
         stage('Static Analysis') {
@@ -144,13 +143,13 @@ En este paso, personalizaremos el pipeline de Jenkins para un proyecto Python.
             }
         }
       ```
-    - Haz commit y push de los cambios en el archivo "Jenkinsfile" a tu repositorio de GitLab.
-    - Comprueba que el pipeline se ejecute correctamente y que el análisis de código estático se realice correctamente.
-    - Puedes ver los resultados del análisis de código estático en el panel de control de Jenkins.
+    - Commit and push the changes in the "Jenkinsfile" file to your GitLab repository.
+    - Verify that the pipeline is running correctly and that static code analysis is successful.
+    - You can view the results of static code analysis in the Jenkins dashboard.
 
-3. Configura el stage "Unit Test":
-    - Este stage ejecuta las pruebas unitarias y genera un informe de pruebas.
-    - Copia el siguiente texto en el Pipeline:
+3. Configure stage "Unit Test":
+    - This stage runs the unit tests and generates a test report.
+    - Copy the following text into the Pipeline:
       ```groovy
         // Unit tests stage to run PyTest and publish JUnit report
         stage('Unit tests') {
@@ -169,15 +168,15 @@ En este paso, personalizaremos el pipeline de Jenkins para un proyecto Python.
             }
         }
       ```
-      - Haz commit y push de los cambios en el archivo "Jenkinsfile" a tu repositorio de GitLab.
-      - Comprueba que el pipeline se ejecute correctamente y que las pruebas unitarias se realicen correctamente.
-      - Puedes ver los resultados de las pruebas unitarias en el panel de control de Jenkins.
+      - Commit and push changes to the "Jenkinsfile" file to your GitLab repository.
+      - Verify that the pipeline is running correctly and that unit tests are successful.
+      - You can view unit test results in the Jenkins dashboard.
 
-4. Configura el stage "Coverage":
-    - Este stage ejecuta las pruebas con cobertura y genera un informe de cobertura.
-    - Copia el siguiente texto en el Pipeline:
+4. Configure stage "Coverage":
+    - This stage runs the tests with coverage and generates a coverage report.
+    - Copy the following text into the Pipeline:
       ```groovy
-        // Coverage stage to run coverage and publish Cobertura report
+        // Coverage stage to run coverage and publish Coverage report
         stage('Coverage') {
             steps {
                 echo 'Running coverage'
@@ -211,22 +210,23 @@ En este paso, personalizaremos el pipeline de Jenkins para un proyecto Python.
       ```
 
 
-## Paso 4 - Instala plugins BlueOcean (opcional)
+## Step 4 - Install BlueOcean plugins (optional)
 
-Instala el plugin BlueOcean para visualizar el pipeline de una manera más amigable.
+Install the BlueOcean plugin to visualize the pipeline in a more user-friendly way.
 
-Para instalar el plugin BlueOcean, sigue estos pasos:
-- Ve a "Manage Jenkins" > "Manage Plugins" > "Available" > "Blue Ocean".
-- Haz clic en "Install without restart" para instalar el plugin.
-- Una vez instalado, ve a la página principal de Jenkins y haz clic en "Open Blue Ocean" para ver el pipeline con la interfaz de usuario de Blue Ocean.
+To install the BlueOcean plugin, follow these steps:
+- Go to  "Manage Jenkins" > "Manage Plugins" > "Available" > "Blue Ocean".
+- Click "Install without restart" to install the plugin.
+- Once installed, go to the Jenkins homepage and click on "Open Blue Ocean" to view the pipeline with the Blue Ocean UI.
 
-## Paso 5 - Configurar notificaciones en el pipeline de Jenkins (opcional)
+## Step 5 - Set Up Notifications in the Jenkins Pipeline (Optional)
 
-Intenta instalar cualquier plugin de notificación para recibir notificaciones cuando se ejecute el pipeline
+Try installing any notification plugin to get notified when the pipeline is running
 
-Para instalar un plugin de notificación, sigue estos pasos:
-- Enviar notificaciones en el Pipeline: https://www.jenkins.io/doc/pipeline/tour/post/
-- Notificaciones de Slack: https://plugins.jenkins.io/slack/
-- Notificaciones por correo electrónico: https://plugins.jenkins.io/email-ext/
-- Notificaciones de Telegram: https://plugins.jenkins.io/telegram-notifications/
-- Notificaciones de Microsoft Teams: https://blog.devops.dev/jenkins-notifications-with-microsoft-teams-2cf60aab4451
+To install a notification plugin, follow these steps:
+- Send notifications in the Pipeline: https://www.jenkins.io/doc/pipeline/tour/post/
+- Slack notifications: https://plugins.jenkins.io/slack/
+- Email notifications: https://plugins.jenkins.io/email-ext/
+- Telegram notifications: https://plugins.jenkins.io/telegram-notifications/
+- Microsoft Teams notifications: https://blog.devops.dev/jenkins-notifications-with-microsoft-teams-2cf60aab4451
+
