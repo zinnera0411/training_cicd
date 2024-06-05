@@ -97,10 +97,10 @@ To create a Jenkins pipeline, follow these steps:
     - Create a new key, you don't need the permissions of: "Allow write accesses".
     - Agrega el token de implementación como una credencial en la configuración del pipeline.
     ![Descripción de la imagen](./images/Jenkins_Repository_Credentials.jpg)
-    - Selecciona la credencial que creaste en el campo "Credentials".
-    - Ingresa el nombre de la rama en la que estés trabajando (por ejemplo, "jenkins") en el campo "Branches to build".
+   - Select the credential you created in the "Credentials" field.
+    - Enter the name of the branch you're working on (e.g., "jenkins") in the "Branches to build" field.
     ![Descripción de la imagen](./images/Jenkins_Repository_Credentials_to_Pipeline.jpg)
-    - Haz clic en "Save" para guardar la configuración del pipeline.
+    - Click "Save" to save the pipeline settings.
 
 3. Run the pipeline:
     - Click "Build Now" to run the pipeline.
@@ -109,7 +109,7 @@ To create a Jenkins pipeline, follow these steps:
       - Build: Installs the dependencies of the Python project.
       - Deploy: space to configure the deployment of the python project.
     
-    ![Descripción de la imagen](./images/Jenkins_Pipeline_Configuration.jpg)
+    ![Descripción de la imagen](./images/Jenkins_Console_Output.jpg)
     - You can view pipeline progress and logs in the Jenkins dashboard.
 
 ## Step 3 - Customize the Jenkins pipeline
