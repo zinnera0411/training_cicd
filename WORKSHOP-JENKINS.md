@@ -9,7 +9,7 @@ Before you begin, make sure you have Docker installed:
 
 ## Paso 0 - Fork this repository
 
-1. To get started, fork this repository in your GitLab account. 
+1. To get started, fork this repository in your GitHub account. 
 
 2. The next step is to clone your repository to your local machine. To do this, run the following commands on your terminal:
     ```bash
