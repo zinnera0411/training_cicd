@@ -81,15 +81,20 @@ To create a Jenkins pipeline, follow these steps:
     - Click "OK" to create the task.
     
 2. Set up the pipeline:
-    - On the pipeline settings page, scroll down to the "Pipeline" section.
+    On the pipeline settings page, scroll down to the "Pipeline" section.
     - Select "Pipeline script from SCM" as the definition.
     - Choose "Git" as the SCM.
-    - Enter your repository's GitLab repository URL (https).
-    - Crea una nueva credencial con tu repositorio de Github.
-    - Ve a tu cuenta de GitLab.
-    - Haz clic en tu repositorio de GitLab.
-    - Ve a "Settings" > "Repository" > "Deploy Tokens" > "Add token".
-    - Crea un nuevo token de implementación con los permisos necesarios: "read_repository".
+    - Enter your repository's GitHub repository URL (https).
+    - Create a new credential with your Github repository.
+    - Go to your GitHub account.
+    - Click your GitHub repository.
+    - Create you own key using: ssh-keygen -t ssh-rsacd
+    - the new key is stored in:
+        ~./ssh/id_rsa (private key)
+        ~./ssh/id_rsa.pub (public key)
+    - Go to a "Settings" > "Deploy Keys" > "Add deploy key". 
+    - Add your public key
+    - Create a new key, you don't need the permissions of: "Allow write accesses".
     ![Descripción de la imagen](./images/GitLab_DeployToken.jpg)
     - Agrega el token de implementación como una credencial en la configuración del pipeline.
     ![Descripción de la imagen](./images/Jenkins_Repository_Credentials.jpg)
