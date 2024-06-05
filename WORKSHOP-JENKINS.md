@@ -95,12 +95,11 @@ To create a Jenkins pipeline, follow these steps:
     - Go to a "Settings" > "Deploy Keys" > "Add deploy key". 
     - Add your public key
     - Create a new key, you don't need the permissions of: "Allow write accesses".
-    ![Descripción de la imagen](./images/GitLab_DeployToken.jpg)
     - Agrega el token de implementación como una credencial en la configuración del pipeline.
     ![Descripción de la imagen](./images/Jenkins_Repository_Credentials.jpg)
     - Selecciona la credencial que creaste en el campo "Credentials".
     - Ingresa el nombre de la rama en la que estés trabajando (por ejemplo, "jenkins") en el campo "Branches to build".
-    ![Descripción de la imagen](./images/Jenkins_Pipeline_Configuration.jpg)
+    ![Descripción de la imagen](./images/Jenkins_Repository_Credentials_to_Pipeline.jpg)
     - Haz clic en "Save" para guardar la configuración del pipeline.
 
 3. Run the pipeline:
