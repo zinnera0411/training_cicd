@@ -92,7 +92,8 @@ To create a Jenkins pipeline, follow these steps:
     - the new key is stored in:
        - ~./ssh/id_rsa (private key)
        - ~./ssh/id_rsa.pub (public key)
-    - Go to a "Settings" > "Deploy Keys" > "Add deploy key". 
+    - Go to a "Settings" > "Deploy Keys" > "Add deploy key".
+    ![Descripción de la imagen](./images/Jenkins_Create_Github_Credentials.jpg)
     - Add your public key
     - Create a new key, you don't need the permissions of: "Allow write accesses".
     - Agrega el token de implementación como una credencial en la configuración del pipeline.
