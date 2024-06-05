@@ -90,8 +90,8 @@ To create a Jenkins pipeline, follow these steps:
     - Click your GitHub repository.
     - Create you own key using: ssh-keygen -t ssh-rsacd
     - the new key is stored in:
-        ~./ssh/id_rsa (private key)
-        ~./ssh/id_rsa.pub (public key)
+       - ~./ssh/id_rsa (private key)
+       - ~./ssh/id_rsa.pub (public key)
     - Go to a "Settings" > "Deploy Keys" > "Add deploy key". 
     - Add your public key
     - Create a new key, you don't need the permissions of: "Allow write accesses".
