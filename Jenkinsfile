@@ -30,7 +30,7 @@ pipeline {
             }
         }
 
-          // Static Analysis stage to run PyLint and publish report
+        // Static Analysis stage to run PyLint and publish report
         stage('Static Analysis') {
             steps {
                   echo "Running PyLint"
@@ -56,6 +56,3 @@ pipeline {
         }
     }
 }
-
-}
-
